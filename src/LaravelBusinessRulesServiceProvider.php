@@ -2,7 +2,9 @@
 
 namespace Jafar\LaravelBusinessRules;
 
+use Illuminate\Support\Facades\App;
 use Jafar\LaravelBusinessRules\Commands\LaravelBusinessRulesCommand;
+use Jafar\LaravelBusinessRules\RuleEngine\RulesBus;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,8 +20,16 @@ class LaravelBusinessRulesServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-business-rules')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-business-rules_table')
             ->hasCommand(LaravelBusinessRulesCommand::class);
+    }
+
+    public function register()
+    {
+        $provider = parent::register();
+        App::bind('Rules', function () {
+            return new RulesBus();
+        });
+
+        return $provider;
     }
 }
