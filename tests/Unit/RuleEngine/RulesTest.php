@@ -2,7 +2,6 @@
 
 namespace Jafar\LaravelBusinessRules\Tests\Unit\RuleEngine;
 
-
 use Exception;
 use Jafar\LaravelBusinessRules\Facades\Rules;
 use Jafar\LaravelBusinessRules\Interfaces\Rulable;
@@ -13,13 +12,16 @@ use Jafar\LaravelBusinessRules\Tests\TestCase;
 class RulesTest extends TestCase
 {
     protected Rulable $passingRule;
+
     protected Rulable $failingRule;
+
     protected Rulable $invalidRule;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->passingRule = new class extends AbstractRule {
+        $this->passingRule = new class extends AbstractRule
+        {
             public function run(): bool
             {
                 return true;
@@ -27,11 +29,12 @@ class RulesTest extends TestCase
 
             public function getErrorMessage(): string
             {
-                return "success";
+                return 'success';
             }
         };
 
-        $this->failingRule = new class extends AbstractRule {
+        $this->failingRule = new class extends AbstractRule
+        {
             public function run(): bool
             {
                 return false;
@@ -39,11 +42,12 @@ class RulesTest extends TestCase
 
             public function getErrorMessage(): string
             {
-                return "invalid";
+                return 'invalid';
             }
         };
 
-        $this->invalidRule = new class extends AbstractRule {
+        $this->invalidRule = new class extends AbstractRule
+        {
             public function run(): bool
             {
                 return false;
@@ -86,7 +90,7 @@ class RulesTest extends TestCase
     public function rules_execution_results_can_be_accessed_as_aggregate()
     {
         $rules = Rules::apply([
-            $this->failingRule
+            $this->failingRule,
         ]);
         $this->assertTrue($rules->hasFailures());
         $this->assertFalse($rules->allPassed());
@@ -97,7 +101,7 @@ class RulesTest extends TestCase
     {
         $rules = Rules::apply([
             $this->passingRule,
-            $this->failingRule
+            $this->failingRule,
         ]);
 
         $this->assertEquals('invalid', $rules->failedDueTo()->getErrorMessage());
@@ -108,7 +112,7 @@ class RulesTest extends TestCase
     {
         $rules = Rules::apply([
             $this->passingRule,
-            $this->failingRule
+            $this->failingRule,
         ]);
 
         $this->assertEquals(400, $rules->failedDueTo()->getStatusCode());

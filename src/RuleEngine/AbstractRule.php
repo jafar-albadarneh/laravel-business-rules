@@ -12,7 +12,6 @@ use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 
 class AbstractRule implements Rulable
 {
-
     /**
      * @throws Exception
      */
