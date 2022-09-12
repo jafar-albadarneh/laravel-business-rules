@@ -3,16 +3,15 @@
 namespace Jafar\LaravelBusinessRules\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 use Jafar\LaravelBusinessRules\LaravelBusinessRulesServiceProvider;
 use Jafar\LaravelBusinessRules\RuleEngine\AbstractRule;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    protected Rulable $passingRule;
+    protected $passingRule;
 
-    protected Rulable $failingRule;
+    protected $failingRule;
 
     protected function setUp(): void
     {
