@@ -24,7 +24,7 @@ class TestCase extends Orchestra
             fn (string $modelName) => 'Jafar\\LaravelBusinessRules\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
 
-        $this->passingRule = new class extends AbstractRule
+        $this->passingRule = new class extends AbstractRule implements Rulable
         {
             public function run(): bool
             {
@@ -37,7 +37,7 @@ class TestCase extends Orchestra
             }
         };
 
-        $this->failingRule = new class extends AbstractRule
+        $this->failingRule = new class extends AbstractRule implements Rulable
         {
             public function run(): bool
             {
@@ -50,7 +50,7 @@ class TestCase extends Orchestra
             }
         };
 
-        $this->invalidRule = new class extends AbstractRule
+        $this->invalidRule = new class extends AbstractRule implements Rulable
         {
             public function run(): bool
             {
