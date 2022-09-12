@@ -30,7 +30,6 @@ class TestCase extends Orchestra
             ->method('getErrorMessage')
             ->will($this->returnValue('success'));
 
-
         $this->failingRule = $this->getMockForAbstractClass(AbstractRule::class);
         $this->failingRule->expects($this->any())
             ->method('run')

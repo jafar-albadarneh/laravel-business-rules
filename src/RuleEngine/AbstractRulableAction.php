@@ -39,5 +39,5 @@ abstract class AbstractRulableAction
         return $this->rules;
     }
 
-    public abstract function execute();
+    abstract public function execute();
 }

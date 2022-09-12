@@ -15,12 +15,12 @@ abstract class AbstractRule implements Rulable
     /**
      * @throws Exception
      */
-    public abstract function run(): bool;
+    abstract public function run(): bool;
 
     /**
      * @throws Exception
      */
-    public abstract function getErrorMessage(): ?string;
+    abstract public function getErrorMessage(): ?string;
 
     public function getSeverityLevel(): ?int
     {
