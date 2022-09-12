@@ -5,7 +5,6 @@ namespace Jafar\LaravelBusinessRules\RuleEngine;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Jafar\LaravelBusinessRules\Exceptions\RuleResultException;
-use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 
 class RulesEngine
 {

@@ -3,7 +3,6 @@
 namespace Jafar\LaravelBusinessRules\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 use Jafar\LaravelBusinessRules\LaravelBusinessRulesServiceProvider;
 use Jafar\LaravelBusinessRules\RuleEngine\AbstractRule;
 use Orchestra\Testbench\TestCase as Orchestra;

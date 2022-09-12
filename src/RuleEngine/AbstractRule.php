@@ -8,7 +8,6 @@
 namespace Jafar\LaravelBusinessRules\RuleEngine;
 
 use Exception;
-use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 
 abstract class AbstractRule
 {
