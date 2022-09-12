@@ -8,7 +8,6 @@
 namespace Jafar\LaravelBusinessRules\Tests\Unit\Actions;
 
 use Jafar\LaravelBusinessRules\Exceptions\RuleResultException;
-use Jafar\LaravelBusinessRules\Interfaces\Actionable;
 use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 use Jafar\LaravelBusinessRules\RuleEngine\AbstractRulableAction;
 use Jafar\LaravelBusinessRules\Tests\TestCase;
@@ -20,13 +19,11 @@ class RuleAwareActionTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->action = new class extends AbstractRulableAction implements Actionable
-        {
-            public function execute(...$args)
-            {
-                return true;
-            }
-        };
+        $this->action = $this->getMockForAbstractClass(AbstractRulableAction::class);
+        $this->action->expects($this->any())
+            ->method('execute')
+            ->will($this->returnValue(true));
+
     }
 
     /** @test
@@ -77,7 +74,7 @@ class RuleAwareActionTest extends TestCase
                 ])
                 ->execute();
         } catch (RuleResultException $exception) {
-            $this->assertEquals('invalid', $exception->getMessage());
+            $this->assertEquals('failed', $exception->getMessage());
         }
     }
 }

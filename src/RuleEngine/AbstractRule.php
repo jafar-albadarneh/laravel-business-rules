@@ -15,18 +15,12 @@ abstract class AbstractRule implements Rulable
     /**
      * @throws Exception
      */
-    public function run(): bool
-    {
-        throw new Exception('Method run() must be implemented');
-    }
+    public abstract function run(): bool;
 
     /**
      * @throws Exception
      */
-    public function getErrorMessage(): ?string
-    {
-        throw new Exception('Method getErrorMessage() must be implemented');
-    }
+    public abstract function getErrorMessage(): ?string;
 
     public function getSeverityLevel(): ?int
     {

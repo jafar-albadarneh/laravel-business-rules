@@ -14,8 +14,6 @@ class TestCase extends Orchestra
 
     protected Rulable $failingRule;
 
-    protected Rulable $invalidRule;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,39 +22,22 @@ class TestCase extends Orchestra
             fn (string $modelName) => 'Jafar\\LaravelBusinessRules\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
 
-        $this->passingRule = new class extends AbstractRule implements Rulable
-        {
-            public function run(): bool
-            {
-                return true;
-            }
+        $this->passingRule = $this->getMockForAbstractClass(AbstractRule::class);
+        $this->passingRule->expects($this->any())
+            ->method('run')
+            ->will($this->returnValue(true));
+        $this->passingRule->expects($this->any())
+            ->method('getErrorMessage')
+            ->will($this->returnValue('success'));
 
-            public function getErrorMessage(): string
-            {
-                return 'success';
-            }
-        };
 
-        $this->failingRule = new class extends AbstractRule implements Rulable
-        {
-            public function run(): bool
-            {
-                return false;
-            }
-
-            public function getErrorMessage(): string
-            {
-                return 'invalid';
-            }
-        };
-
-        $this->invalidRule = new class extends AbstractRule implements Rulable
-        {
-            public function run(): bool
-            {
-                return false;
-            }
-        };
+        $this->failingRule = $this->getMockForAbstractClass(AbstractRule::class);
+        $this->failingRule->expects($this->any())
+            ->method('run')
+            ->will($this->returnValue(false));
+        $this->failingRule->expects($this->any())
+            ->method('getErrorMessage')
+            ->will($this->returnValue('failed'));
     }
 
     protected function getPackageProviders($app)

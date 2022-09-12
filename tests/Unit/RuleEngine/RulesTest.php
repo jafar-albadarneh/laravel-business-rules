@@ -9,14 +9,6 @@ use Jafar\LaravelBusinessRules\Tests\TestCase;
 
 class RulesTest extends TestCase
 {
-    /** @test */
-    public function it_should_throw_an_exception_if_rule_class_does_not_implement_all_necessary_methods()
-    {
-        $this->expectException(Exception::class);
-        Rules::apply([
-            $this->invalidRule,
-        ]);
-    }
 
     /** @test */
     public function it_returns_rules_results_as_object_of_RuleResult()
@@ -37,7 +29,7 @@ class RulesTest extends TestCase
 
         $results = $rules->results();
         $this->assertTrue($results->first()->hasFailed());
-        $this->assertEquals('invalid', $results->first()->getErrorMessage());
+        $this->assertEquals('failed', $results->first()->getErrorMessage());
     }
 
     /** @test */
@@ -58,7 +50,7 @@ class RulesTest extends TestCase
             $this->failingRule,
         ]);
 
-        $this->assertEquals('invalid', $rules->failedDueTo()->getErrorMessage());
+        $this->assertEquals('failed', $rules->failedDueTo()->getErrorMessage());
     }
 
     /** @test */
