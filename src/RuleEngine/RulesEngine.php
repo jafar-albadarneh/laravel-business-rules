@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Jafar\LaravelBusinessRules\Exceptions\RuleResultException;
 use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 
-class RulesBus
+class RulesEngine
 {
     protected Collection $results;
 
@@ -54,22 +54,11 @@ class RulesBus
         });
     }
 
-    public function hasNonCriticalFailed(): ?RuleResult
+    public function getFailedRules(): Collection
     {
-        return $this->results->first(function (RuleResult $result) {
-            return $result->hasFailed() && ! $result->isCritical();
+        return $this->results->filter(function (RuleResult $result) {
+            return $result->hasFailed();
         });
-    }
-
-    public function hasCriticalFailed(): ?RuleResult
-    {
-        $filtered = $this->results->filter(function (RuleResult $result) {
-            return $result->hasFailed() && $result->isCritical() && ! is_null($result->getSeverity());
-        });
-
-        return collect($filtered)->sort(function (RuleResult $ruleResult) {
-            return $ruleResult->getSeverity();
-        })->first();
     }
 
     public function failedDueTo(): RuleResult

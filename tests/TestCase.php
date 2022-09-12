@@ -3,11 +3,19 @@
 namespace Jafar\LaravelBusinessRules\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 use Jafar\LaravelBusinessRules\LaravelBusinessRulesServiceProvider;
+use Jafar\LaravelBusinessRules\RuleEngine\AbstractRule;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    protected Rulable $passingRule;
+
+    protected Rulable $failingRule;
+
+    protected Rulable $invalidRule;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -15,6 +23,40 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Jafar\\LaravelBusinessRules\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+
+        $this->passingRule = new class extends AbstractRule
+        {
+            public function run(): bool
+            {
+                return true;
+            }
+
+            public function getErrorMessage(): string
+            {
+                return 'success';
+            }
+        };
+
+        $this->failingRule = new class extends AbstractRule
+        {
+            public function run(): bool
+            {
+                return false;
+            }
+
+            public function getErrorMessage(): string
+            {
+                return 'invalid';
+            }
+        };
+
+        $this->invalidRule = new class extends AbstractRule
+        {
+            public function run(): bool
+            {
+                return false;
+            }
+        };
     }
 
     protected function getPackageProviders($app)

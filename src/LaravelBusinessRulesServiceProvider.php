@@ -2,9 +2,8 @@
 
 namespace Jafar\LaravelBusinessRules;
 
-use Illuminate\Support\Facades\App;
 use Jafar\LaravelBusinessRules\Commands\LaravelBusinessRulesCommand;
-use Jafar\LaravelBusinessRules\RuleEngine\RulesBus;
+use Jafar\LaravelBusinessRules\RuleEngine\RulesEngine;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -25,11 +24,9 @@ class LaravelBusinessRulesServiceProvider extends PackageServiceProvider
 
     public function register()
     {
-        $provider = parent::register();
-        App::bind('Rules', function () {
-            return new RulesBus();
+        parent::register();
+        app()->bind('Rules', function () {
+            return new RulesEngine();
         });
-
-        return $provider;
     }
 }

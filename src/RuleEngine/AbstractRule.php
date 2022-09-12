@@ -10,7 +10,7 @@ namespace Jafar\LaravelBusinessRules\RuleEngine;
 use Exception;
 use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 
-class AbstractRule implements Rulable
+abstract class AbstractRule implements Rulable
 {
     /**
      * @throws Exception

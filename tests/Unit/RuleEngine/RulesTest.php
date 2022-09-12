@@ -4,57 +4,11 @@ namespace Jafar\LaravelBusinessRules\Tests\Unit\RuleEngine;
 
 use Exception;
 use Jafar\LaravelBusinessRules\Facades\Rules;
-use Jafar\LaravelBusinessRules\Interfaces\Rulable;
-use Jafar\LaravelBusinessRules\RuleEngine\AbstractRule;
 use Jafar\LaravelBusinessRules\RuleEngine\RuleResult;
 use Jafar\LaravelBusinessRules\Tests\TestCase;
 
 class RulesTest extends TestCase
 {
-    protected Rulable $passingRule;
-
-    protected Rulable $failingRule;
-
-    protected Rulable $invalidRule;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->passingRule = new class extends AbstractRule
-        {
-            public function run(): bool
-            {
-                return true;
-            }
-
-            public function getErrorMessage(): string
-            {
-                return 'success';
-            }
-        };
-
-        $this->failingRule = new class extends AbstractRule
-        {
-            public function run(): bool
-            {
-                return false;
-            }
-
-            public function getErrorMessage(): string
-            {
-                return 'invalid';
-            }
-        };
-
-        $this->invalidRule = new class extends AbstractRule
-        {
-            public function run(): bool
-            {
-                return false;
-            }
-        };
-    }
-
     /** @test */
     public function it_should_throw_an_exception_if_rule_class_does_not_implement_all_necessary_methods()
     {
@@ -116,5 +70,19 @@ class RulesTest extends TestCase
         ]);
 
         $this->assertEquals(400, $rules->failedDueTo()->getStatusCode());
+    }
+
+    /** @test */
+    public function it_should_allow_listing_all_failed_rules()
+    {
+        $rules = Rules::apply([
+            $this->passingRule,
+            $this->failingRule,
+            $this->failingRule,
+            $this->failingRule,
+            $this->passingRule,
+        ]);
+
+        $this->assertCount(3, $rules->getFailedRules());
     }
 }
