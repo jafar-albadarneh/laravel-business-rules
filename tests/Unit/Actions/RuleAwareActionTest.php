@@ -23,7 +23,6 @@ class RuleAwareActionTest extends TestCase
         $this->action->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(true));
-
     }
 
     /** @test

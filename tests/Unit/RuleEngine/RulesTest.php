@@ -2,14 +2,12 @@
 
 namespace Jafar\LaravelBusinessRules\Tests\Unit\RuleEngine;
 
-use Exception;
 use Jafar\LaravelBusinessRules\Facades\Rules;
 use Jafar\LaravelBusinessRules\RuleEngine\RuleResult;
 use Jafar\LaravelBusinessRules\Tests\TestCase;
 
 class RulesTest extends TestCase
 {
-
     /** @test */
     public function it_returns_rules_results_as_object_of_RuleResult()
     {
