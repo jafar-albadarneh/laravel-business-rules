@@ -7,7 +7,7 @@ use Jafar\LaravelBusinessRules\Interfaces\Rulable;
 
 class RuleResult
 {
-    protected Rulable $rule;
+    protected $rule;
 
     protected bool $result;
 
@@ -22,7 +22,7 @@ class RuleResult
     /**
      * @param  Rulable  $rule
      */
-    public function __construct(Rulable $rule)
+    public function __construct($rule)
     {
         $this->rule = $rule;
         $this->statusCode = null;

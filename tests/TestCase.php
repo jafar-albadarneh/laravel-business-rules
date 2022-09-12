@@ -10,11 +10,11 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    protected Rulable $passingRule;
+    protected $passingRule;
 
-    protected Rulable $failingRule;
+    protected $failingRule;
 
-    protected Rulable $invalidRule;
+    protected $invalidRule;
 
     protected function setUp(): void
     {
@@ -24,7 +24,7 @@ class TestCase extends Orchestra
             fn (string $modelName) => 'Jafar\\LaravelBusinessRules\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
 
-        $this->passingRule = new class extends AbstractRule implements Rulable
+        $this->passingRule = new class extends AbstractRule
         {
             public function run(): bool
             {
@@ -37,7 +37,7 @@ class TestCase extends Orchestra
             }
         };
 
-        $this->failingRule = new class extends AbstractRule implements Rulable
+        $this->failingRule = new class extends AbstractRule
         {
             public function run(): bool
             {
@@ -50,7 +50,7 @@ class TestCase extends Orchestra
             }
         };
 
-        $this->invalidRule = new class extends AbstractRule implements Rulable
+        $this->invalidRule = new class extends AbstractRule
         {
             public function run(): bool
             {

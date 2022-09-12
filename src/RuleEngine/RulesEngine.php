@@ -18,7 +18,7 @@ class RulesEngine
 
     public function apply($rules): self
     {
-        collect($rules)->map(function (Rulable $rule) {
+        collect($rules)->map(function ($rule) {
             $ruleResult = new RuleResult($rule);
             $ruleResult->setResult($rule->run());
             if ($ruleResult->hasFailed()) {
