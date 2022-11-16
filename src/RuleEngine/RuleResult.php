@@ -148,13 +148,13 @@ class RuleResult
         return $this;
     }
 
-    public function toExceptionResponse(): JsonResponse
+    public function toExceptionResponse(int $statusCode = null): JsonResponse
     {
         return response()->json([
             'message' => $this->getErrorMessage(),
             'success' => $this->result,
-            'status_code' => $this->getStatusCode(),
+            'status_code' => $statusCode ?? $this->getStatusCode(),
             'data' => [],
-        ], $this->getStatusCode());
+        ], $statusCode ?? $this->getStatusCode());
     }
 }
